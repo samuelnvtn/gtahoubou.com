@@ -1,5 +1,7 @@
 ---
-
+import Navigation from '../components/navbar.astro'
+import Footer from '../components/footer.astro'
+import obrazek from '../img/show.png';
 ---
 
 <html lang="en">
@@ -9,9 +11,63 @@
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
+		<title>GTA Houbou</title>
 	</head>
 	<body>
-		<h1>Astro</h1>
+		<Navigation></Navigation>
+		<div class="content">
+			<div class="poster">
+				<h1>KABINET MÚZ, 27.2.26</h1>
+				<img src={obrazek.src}>
+				<h1>GTA HOUBOU & BLANC</h1>
+			</div>
+		</div>
+		
+		<Footer></Footer>
+
+		
 	</body>
 </html>
+
+<style>
+	 *{
+        margin: 0;
+        padding: 0;
+		box-sizing: border-box;
+    }
+
+	body {
+		overflow-x: hidden;
+	}
+
+	h1 {
+		font-weight: bolder;
+		font-size: 60px;
+		color:#9C2D30 ;
+		margin-bottom: 10px;
+		font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+	}
+
+	img {
+		height: 500px;
+		width: auto;
+		margin-bottom: 10px;
+	}
+
+	.content {
+		background-color: #111;
+		min-height: 91vh;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		padding: 40px 0;
+	}
+
+	.poster {
+        display: flex;           
+        flex-direction: column;  
+        align-items: center;     
+        text-align: center;
+	}
+</style>
