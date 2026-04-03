@@ -1,16 +1,24 @@
+---
+import logo from '../img/logo_black.png';
+import stars from '../img/gta_wanted.png';
+---
+
+
 <div class="navbar">
     <div class="navbar-left">
-            <a href="">SHOP</a>
-            <a href="">MUSIC</a>
-            <a href="">VIDEOS</a>
-            <a href="">SHOWS</a>
-            <a href="">GTA VI</a>
+            <a href="/shop">SHOP</a>
+            <a href="/music">MUSIC</a>
+            <a href="/videos">VIDEOS</a>
+            <a href="/shows">SHOWS</a>
+            <a href="/gtavi">GTA VI</a>
     </div>
     <div class="navbar-logo">
-        <img class="logo" src="https://static.wixstatic.com/media/be636c_ddb0105d760f45e9bbf14d902bb47c9a~mv2.png/v1/fill/w_136,h_136,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/logo_wine.png" alt="">
+        <a class="" href="/">
+            <img class="logo" src={logo.src}>
+        </a>
     </div>
     <div class="navbar-right">
-        <img src="https://static.wixstatic.com/media/be636c_51c8cf8381464e4f96ac1178de17c58b~mv2.png/v1/fill/w_324,h_62,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/PikPng_edited_edited_edited.png" alt="">
+        <img src={stars.src}>
         </div>
 </div>
 <style>
@@ -25,11 +33,16 @@
     }
 
     a {
-        color: #9C2D30;
-		font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        color: #BB2B2E;
+		font-family: "Anton", sans-serif;
         text-decoration: none;
         margin-right: 20px;
-        font-size: 20px;
+        font-size: 18px;
+        font-weight: 400;
+    }
+
+    a:hover{
+        opacity: 70%;
     }
 
     img{
@@ -37,9 +50,14 @@
     }
 
     .logo{
-        height: 70px;
+        height: 60px;
         display: flex;
         align-items: center;
+    }
+
+    .logo:hover {
+        opacity: 70%;
+        cursor: pointer;
     }
 
    .navbar {
