@@ -1,0 +1,105 @@
+---
+import Navigation from '../components/navbar.astro'
+import Footer from '../components/footer.astro'
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+		<title>GTA Houbou</title>
+	</head>
+	<body>
+
+        		<Navigation></Navigation>
+                <div class="content">
+                    <div class="poster">
+                        <h2>OBCHODNÍ PODMÍNKY</h2>
+                        <div class="text">
+                            <p>Obchodní podmínky e-shopu</p>
+                            <p>Provozovatel / prodávající: <br>
+                                Samuel Adámek <br>
+                                OSVČ IČO: 21440468 <br>
+                                Sídlo: Bellova 376/21, Brno-Kohoutovice, 623 00 <br>
+                                E-mail: info@gtahoubou.com <br>
+                                Nejsem plátce DPH.</p>
+                                <p>1. <u>Objednávka a vznik smlouvy </u><br>
+                                    Objednávku lze vytvořit prostřednictvím 
+                                    nákupního košíku na webu. Kupní smlouva 
+                                    vzniká potvrzením objednávky e‑mailem.</p>
+                                <p>2. <u>Cena a způsoby platby</u><br>
+                                Ceny jsou konečné (nejsem plátce DPH). Platba probíhá online, 
+                                případně převodem.</p>
+                                <p>3. <u>Doprava</u><br>
+                                Zboží zasílám službami: Česká pošta, Zásilkovna, 
+                                PPL a další dostupné metody.</p>
+                                <p>4. <u>Odstoupení od smlouvy</u><br>
+                                Spotřebitel má právo odstoupit do 14 dnů. Vrácené zboží zasílejte na adresu: <br>
+                                Samuel Adámek, Bellova 376/21, Brno-Kohoutovice, 623 00.</p>
+                                <p>5. <u>Reklamace</u><br>
+                                Reklamace lze uplatnit na e‑mailu: info@gtahoubou.com. 
+                                Lhůta pro vyřízení je 30 dní.</p>
+                                <p>6. <u>Ochrana osobních údajů</u><br>
+                                Uvedeno v samostatné sekci GDPR.</p>
+                                <p>7. <u>Závěr</u><br>
+                                Odesláním objednávky zákazník souhlasí s těmito podmínkami.</p>
+                        </div>
+                    </div>
+                </div>
+                <Footer></Footer>
+    </body>
+</html>
+
+<style>
+	 *{
+        margin: 0;
+        padding: 0;
+		box-sizing: border-box;
+    }
+
+	body {
+		overflow-x: hidden;
+	}
+
+    h2 {
+        font-weight: 400;
+		font-size: 30px;
+		color:#9C2D30 ;
+		margin-bottom: 20px;
+		font-family: "Anton", sans-serif;
+    }
+
+    p {
+        font-family: "Anton", sans-serif;
+        color:#9C2D30;
+        margin-bottom: 20px;
+        font-size: 15px;
+    }
+
+    .content {
+        display: flex;
+        justify-content: center;
+        background-color: #111;
+		min-height: 100vh; //91vh
+	}
+    
+    .poster{
+        align-items: center;     
+        text-align: center; 
+        width: 50%;
+        padding: 40px;
+    }
+
+    .text{
+        display: flex;
+        flex-direction: column;
+        text-align: start;
+    }
+
+</style>
