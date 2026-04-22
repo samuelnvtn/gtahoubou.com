@@ -25,6 +25,16 @@ import stars from '../img/gta_wanted.png';
     <button class="menu-btn" id="menuBtn" aria-label="Otevřít menu">
         <span></span><span></span><span></span>
     </button>
+
+    <div class="mobile-menu" id="mobileMenu">
+  <nav>
+    <a href="/">HOME</a>
+   <!--  <a href="/shop">SHOP</a> -->
+    <a href="/music">MUSIC</a>
+    <a href="/videos">VIDEOS</a>
+    <a href="/shows">SHOWS</a>
+    <a href="/gta-vi">GTA VI</a>
+  </nav>
 </div>
 <style>
     *{
@@ -94,23 +104,79 @@ import stars from '../img/gta_wanted.png';
         justify-content: flex-end; 
     }
 
-     /* Hamburger – schovaný na desktopu */
-  .menu-btn {
-    display: none;
-    background: none;
-    border: 2px solid #BB2B2E;
-    cursor: pointer;
-    padding: 10px 12px;
+     /* Hamburger animace */
+.menu-btn {
+  display: none;
+  background: none;
+  border: 2px solid #BB2B2E;
+  cursor: pointer;
+  padding: 10px 12px;
+  flex-direction: column;
+  gap: 5px;
+  transition: opacity 0.2s;
+   position: relative;
+  z-index: 1001;
+}
+
+.menu-btn span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: #BB2B2E;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  transform-origin: center;
+}
+
+/* Mobilní menu animace */
+.mobile-menu {
+  display: flex;
+  position: fixed;
+  inset: 0;
+  background: black;
+  z-index: 1000;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+.mobile-menu.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+  .mobile-menu nav {
+    display: flex;
     flex-direction: column;
-    gap: 5px;
+    align-items: center;
+    justify-content: center;
+    gap: 28px;
   }
 
-  .menu-btn span {
-    display: block;
-    width: 22px;
-    height: 2px;
-    background: #BB2B2E;
-  }
+/* Nav linky animace */
+.mobile-menu nav a {
+  font-size: 40px;
+  letter-spacing: 2px;
+  margin-right: 0;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.mobile-menu.open nav a {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Postupné zobrazení každého linku */
+.mobile-menu.open nav a:nth-child(1) { transition-delay: 0.05s; }
+.mobile-menu.open nav a:nth-child(2) { transition-delay: 0.1s; }
+.mobile-menu.open nav a:nth-child(3) { transition-delay: 0.15s; }
+.mobile-menu.open nav a:nth-child(4) { transition-delay: 0.2s; }
+.mobile-menu.open nav a:nth-child(5) { transition-delay: 0.25s; }
+.mobile-menu.open nav a:nth-child(6) { transition-delay: 0.3s; }
 
 
     @media (max-width: 768px) {
@@ -125,3 +191,32 @@ import stars from '../img/gta_wanted.png';
 
     }
 </style>
+
+<script>
+const menuBtn = document.getElementById('menuBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+
+function openMenu() {
+  const spans = menuBtn?.querySelectorAll('span');
+  mobileMenu?.classList.add('open');
+  if (spans) {
+    spans[0].style.transform = 'translateY(7px) rotate(45deg)';
+    spans[1].style.opacity = '0';
+    spans[2].style.transform = 'translateY(-7px) rotate(-45deg)';
+  }
+}
+
+function closeMenu() {
+  const spans = menuBtn?.querySelectorAll('span');
+  mobileMenu?.classList.remove('open');
+  if (spans) {
+    spans[0].style.transform = '';
+    spans[1].style.opacity = '';
+    spans[2].style.transform = '';
+  }
+}
+
+menuBtn?.addEventListener('click', () => {
+  mobileMenu?.classList.contains('open') ? closeMenu() : openMenu();
+});
+</script>

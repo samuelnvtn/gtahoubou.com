@@ -89,4 +89,23 @@ import Footer from '../components/footer.astro'
     width: 90%;
     margin: 0 auto; 
 }
+
+@media (max-width: 985px){
+    .poster{    grid-template-columns: 320px 320px; 
+}
+}
+
+ @media (max-width: 768px) {    
+    .poster{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+	.latest-vid iframe{
+		width: 320px;
+		height: 180px;
+	}
+}
 </style>
