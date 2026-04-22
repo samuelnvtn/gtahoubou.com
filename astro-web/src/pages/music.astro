@@ -1,0 +1,132 @@
+---
+import Navigation from '../components/navbar.astro'
+import Footer from '../components/footer.astro'
+import heatpalivo from '../img/GTA Houbou - Heat Palivo.png'
+import jamesonpanaka from '../img/GTA Houbou - Jameson panáka.jpg'
+import legendarypiano from '../img/GTA Houbou - Legendary Piano.jpg'
+import armyanegeny from '../img/GTA Houbou - Army & Ne Geny.jpg'
+import zivotmagora from '../img/GTA Houbou - ŽIVOT MAGORA.jpg'
+import highsnobiety from '../img/GTA Houbou - High$nobiety.jpg'
+import federalrunnin from '../img/GTA Houbou - FEDERAL RUNNIN.jpg'
+import eidamsandler from '../img/GTA Houbou - Eidam Sandler.jpg'
+import knowmyidea from '../img/GTA Houbou - Know My Idea.jpg'
+import flowtesting from '../img/GTA Houbou - FLOW TESTING II.jpg'
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="logo_black.png" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+		<title>GTA Houbou</title>
+	</head>
+	<body>
+		<Navigation></Navigation>
+
+		<div class="content">
+            <div class="latest-vid">
+                <a href="https://open.spotify.com/track/59ZSyi47b6xrrvzD1PHayz?si=fa183ffd56614fe9" target="_blank">
+                    <img class="latest" src={heatpalivo.src} alt="GTA Houbou - HeatPalivo">
+                </a>
+            </div>
+			<div class="poster">
+                <a href="https://open.spotify.com/album/1ioBvscFLDLjCZCCKUoqee?si=v9sbEXTqTIKxma-B36oTTg" target="_blank">
+                    <img src={jamesonpanaka.src} alt="GTA Houbou - Jameson panáka">
+                </a>
+                <a href="https://open.spotify.com/album/32FIFpeSRLZVwP0imb97eI?si=iDYgESHbQM2wNqePHditjQ" target="_blank">
+                    <img src={legendarypiano.src} alt="GTA Houbou - Legendary Piano">
+                </a>
+                <a href="https://open.spotify.com/album/0qrW2zYyPmEga1fMOGJRt1?si=1_MXoI21Qa2chC6sEb0sbA" target="_blank">
+                    <img src={armyanegeny.src} alt="GTA Houbou - Army & Ne Geny">
+                </a>
+                <a href="https://open.spotify.com/album/1Ut27m0wY6yxBlO4F8c0Us?si=lOPn4e9GQn-vlVU2pbXJdw" target="_blank">
+                    <img src={zivotmagora.src} alt="GTA Houbou - ŽIVOT MAGORA">
+                </a>
+                <a href="https://open.spotify.com/album/2E6eQ2XYbRyZUrD3rJoNPw?si=4_I043PzR5qqzwv5V-LAaA" target="_blank">
+                    <img src={highsnobiety.src} alt="GTA Houbou - High$nobiety">
+                </a>
+                <a href="https://open.spotify.com/album/1xr1mlDJI8zm94WZPzyQ6U?si=v_2lNmVVQFaDgJT7fwP85A" target="_blank">
+                    <img src={federalrunnin.src} alt="GTA Houbou - FEDERAL RUNNIN">
+                </a>                
+                <a href="https://open.spotify.com/album/2fCSgyfxDtiMWcRFsbbSqk?si=dVE9tT76T9arxCi5zXplSQ" target="_blank">
+                    <img src={eidamsandler.src} alt="GTA Houbou - Eidam Sandler">
+                </a>
+                <a href="https://open.spotify.com/album/4MAqtFA0DHdnViuNDSQcOq?si=nYn-q-OrQ6uZiWd8J0sjYg" target="_blank">
+                    <img src={knowmyidea.src} alt="GTA Houbou - Know My Idea">
+                </a>
+                <a href="https://open.spotify.com/album/6Vu884r2JPM1vfbOlOzsze?si=JsvtlsFIT9KwmFYnGUb1Qw" target="_blank">
+                    <img src={flowtesting.src} alt="GTA Houbou - Flow Testing II">
+                </a>
+			</div>
+		</div>
+        
+		<Footer></Footer>		
+	</body>
+</html>
+
+<style>
+	 *{
+        margin: 0;
+        padding: 0;
+		box-sizing: border-box;
+    }
+
+	body {
+		overflow-x: hidden;
+	}
+
+	.anton-regular {
+  font-family: "Anton", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+	h3 {
+		font-weight: 400;
+		font-size: 30px;
+		color:#9C2D30 ;
+		margin-bottom: 10px;
+		font-family: "Anton", sans-serif;
+	}
+
+	.content {
+		background-color: #111;
+		min-height: 100vh; //91vh
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 40px 0;
+	}
+
+    .latest-vid {
+    display: flex;
+    justify-content: center; 
+    justify-items: center;
+    margin-bottom: 50px;
+    }
+
+    img {
+        transition: transform 0.3s ease-in-out;
+        width: 250px;
+        height: 250px;
+    }
+
+    img:hover{
+        transform: scale(1.05);
+    }
+
+	.poster {
+    display: grid;
+    grid-template-columns: 320px 320px 320px; 
+    justify-content: center; 
+    justify-items: center;
+    gap: 30px; 
+    width: 90%;
+    margin: 0 auto; 
+}
+</style>

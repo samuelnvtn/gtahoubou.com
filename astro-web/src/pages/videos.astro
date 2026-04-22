@@ -1,0 +1,93 @@
+---
+import Navigation from '../components/navbar.astro'
+import Footer from '../components/footer.astro'
+import obrazek from '../img/kabinet.jpg';
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="logo_black.png" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+		<title>GTA Houbou</title>
+	</head>
+	<body>
+		<Navigation></Navigation>
+
+		<div class="content">
+            <div class="latest-vid">
+                            <iframe width="560" height="315" src="https://www.youtube.com/embed/LHXChfoPwqM?si=i998qdSoD9Xu9ImH" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+			<div class="poster">
+                <iframe width="320" height="180" src="https://www.youtube.com/embed/lY_vuxOY8d8?si=r58ZaGJs-497SZ3I" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                <iframe width="320" height="180" src="https://www.youtube.com/embed/wNOAbHBJzqM?si=reDGI9DeIIf5LesZ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                <iframe width="320" height="180" src="https://www.youtube.com/embed/zq2MX6X9qkc?si=XWM2wW9dVnc17iNn" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                <iframe width="320" height="180" src="https://www.youtube.com/embed/Zhq4hKPRdyc?si=kUEEbSC71Xid5XAZ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                <iframe width="320" height="180" src="https://www.youtube.com/embed/Qwp8AVGAGzo?si=yGxkyzgSUrmLzGmW" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                <iframe width="320" height="180" src="https://www.youtube.com/embed/2souyw0jd1Y?si=OANP6PxE6HYCa4of" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                <iframe width="320" height="180" src="https://www.youtube.com/embed/OP50Ei_Xrfc?si=2VZtPr1CWMuhMWTH" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                <iframe width="320" height="180" src="https://www.youtube.com/embed/yQEukQOG80Y?si=FyR3A7kbKKrtBT9Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+				<iframe width="320" height="180" src="https://www.youtube.com/embed/e-7GGp3DKG0?si=5D8qXIiKJb9QX6Yk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+			</div>
+		</div>
+        
+		<Footer></Footer>		
+	</body>
+</html>
+
+<style>
+	 *{
+        margin: 0;
+        padding: 0;
+		box-sizing: border-box;
+    }
+
+	body {
+		overflow-x: hidden;
+	}
+
+	.anton-regular {
+  font-family: "Anton", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+	h3 {
+		font-weight: 400;
+		font-size: 30px;
+		color:#9C2D30 ;
+		margin-bottom: 10px;
+		font-family: "Anton", sans-serif;
+	}
+
+	.content {
+		background-color: #111;
+		min-height: 100vh; //91vh
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 40px 0;
+	}
+
+    .latest-vid {
+    display: flex;
+    justify-content: center; 
+    justify-items: center;
+    margin-bottom: 50px;
+    }
+
+	.poster {
+    display: grid;
+    grid-template-columns: 320px 320px 320px; 
+    justify-content: center; 
+    justify-items: center;
+    gap: 30px; 
+    width: 90%;
+    margin: 0 auto; 
+}
+</style>
