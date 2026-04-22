@@ -56,13 +56,15 @@ import obrazek from '../img/kabinet.jpg';
 		color:#9C2D30 ;
 		margin-bottom: 10px;
 		font-family: "Anton", sans-serif;
+		text-align: center;
 	}
 
 	img {
-		height: 500px;
-		width: auto;
 		margin-bottom: 10px;
         transition: transform 0.3s ease-in-out;
+		height: 500;        
+  		width: 100%;         
+  		max-width: 500px;   
 	}
 
     img:hover {
@@ -71,12 +73,13 @@ import obrazek from '../img/kabinet.jpg';
 
 	.content {
 		background-color: #111;
-		min-height: 100vh; //91vh
+		min-height: 91vh; //91vh
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		padding: 40px 0;
+		padding: 40px 20px;  
+  		overflow-x: hidden;  
 	}
 
 	.poster {
@@ -85,4 +88,14 @@ import obrazek from '../img/kabinet.jpg';
         align-items: center;     
         text-align: center;
 	}
+
+@media (min-width: 769px) {
+  img {
+    height: 500px;
+    width: auto;
+    max-width: none;
+  }
+
+
+}
 </style>

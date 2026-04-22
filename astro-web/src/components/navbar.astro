@@ -21,7 +21,10 @@ import stars from '../img/gta_wanted.png';
     </div>
     <div class="navbar-right">
         <img src={stars.src}>
-        </div>
+    </div>
+    <button class="menu-btn" id="menuBtn" aria-label="Otevřít menu">
+        <span></span><span></span><span></span>
+    </button>
 </div>
 <style>
     *{
@@ -89,5 +92,36 @@ import stars from '../img/gta_wanted.png';
         flex: 1;
         display: flex;
         justify-content: flex-end; 
+    }
+
+     /* Hamburger – schovaný na desktopu */
+  .menu-btn {
+    display: none;
+    background: none;
+    border: 2px solid #BB2B2E;
+    cursor: pointer;
+    padding: 10px 12px;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .menu-btn span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: #BB2B2E;
+  }
+
+
+    @media (max-width: 768px) {
+
+        .navbar-left {display: none; }
+
+        .navbar-right {justify-content: center;}
+
+        .menu-btn { display: flex; }
+
+        img {height: 20px;}
+
     }
 </style>
