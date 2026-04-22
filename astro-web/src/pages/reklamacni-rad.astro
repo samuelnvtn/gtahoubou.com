@@ -20,25 +20,24 @@ import Footer from '../components/footer.astro'
         		<Navigation></Navigation>
                 <div class="content">
                     <div class="poster">
-                        <h2>GDPR</h2>
+                        <h2>REKLAMAČNÍ ŘÁD</h2>
                         <div class="text">
-                            <p>Informace o zpracování osobních údajů (GDPR)</p>
-                            <div class="text2">
-                                <p>Správce údajů: <br>Samuel Adámek <br>IČO: 21440468 <br>
+                            <p>Prodávající: <br>
+                                Samuel Adámek, IČO: 21440468 <br>
                                 Adresa: Bellova 376/21, Brno-Kohoutovice, 623 00 <br>
                                 E-mail: info@gtahoubou.com</p>
-                                <p>1. <u>Jaké údaje zpracovávám</u><br>
-                                Jméno, adresa, e‑mail, telefon, údaje o objednávkách.</p>
-                                <p>2. <u>Účel zpracování</u><br>
-                                Vyřízení objednávky, komunikace, účetní povinnosti.</p>
-                                <p>3. <u>Doba uchování</u><br>
-                                Údaje uchovávám dle zákonných lhůt (cca 10 let).</p>
-                                <p>4. <u>Předávání údajů</u><br>
-                                Dopravcům a platebním službám.</p>
-                                <p>5. <u>Práva zákazníka</u><br>
-                                Přístup, oprava, výmaz, námitka, stížnost na ÚOOÚ.</p>
-                                <p>Kontakt: info@gtahoubou.com</p>
-                            </div>
+                                <p>1. <u>Základní ustanovení</u><br>
+                                    Kupující má právo reklamovat zboží, 
+                                    které je vadné nebo neodpovídá popisu.</p>
+                                <p>2. <u>Uplatnění reklamace</u><br>
+                                Reklamaci lze podat e‑mailem. 
+                                Uveďte číslo objednávky a popis vady.</p>
+                                <p>3. <u>Odeslání zboží</u><br>
+                                Zboží zašlete na uvedenou adresu prodávajícího.</p>
+                                <p>4. <u>Lhůta pro vyřízení</u><br>
+                                Reklamace bude vyřízena do 30 dnů.</p>
+                                <p>5. <u>Informování zákazníka</u><br>
+                                O výsledku reklamace budete informováni e‑mailem.</p>
                         </div>
                     </div>
                 </div>
@@ -76,7 +75,8 @@ import Footer from '../components/footer.astro'
         display: flex;
         justify-content: center;
         background-color: #111;
-		min-height: 100vh; //91vh
+		min-height: 80vh; //91vh
+        max-height: 100vh;
 	}
     
     .poster{
@@ -89,10 +89,6 @@ import Footer from '../components/footer.astro'
     .text{
         display: flex;
         flex-direction: column;
-        text-align: center;
-    }
-
-    .text2 {
         text-align: start;
     }
 

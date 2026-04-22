@@ -1,0 +1,72 @@
+---
+import Navigation from '../components/navbar.astro'
+import Footer from '../components/footer.astro'
+import obrazek from '../img/show.png';
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+		<title>GTA Houbou</title>
+	</head>
+	<body>
+        <Navigation></Navigation>
+		<div class="content">
+			<div class="poster">
+				<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/album/1S6GLrhzEOGCsIm6dzhl5O?utm_source=generator" width="80%" height="600" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+			</div>
+		</div>
+        <Footer></Footer>
+	</body>
+</html>
+
+<style>
+	 *{
+        margin: 0;
+        padding: 0;
+		box-sizing: border-box;
+    }
+
+	body {
+		overflow-x: hidden;
+	}
+
+
+	h1 {
+		font-weight: 400;
+		font-size: 60px;
+		color:#9C2D30 ;
+		margin-bottom: 10px;
+		font-family: "Anton", sans-serif;
+	}
+
+	img {
+		height: 500px;
+		width: auto;
+		margin-bottom: 10px;
+	}
+
+	.content {
+		background-color: #111;
+		min-height: 80vh; //91vh
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		padding: 40px 0;
+	}
+
+	.poster {
+        display: flex;           
+        flex-direction: column;  
+        align-items: center;     
+        text-align: center;
+	}
+</style>
