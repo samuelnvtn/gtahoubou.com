@@ -2,6 +2,7 @@
 import Navigation from '../components/navbar.astro'
 import Footer from '../components/footer.astro'
 import obrazek from '../img/kabinet.jpg';
+import obrazek2 from '../img/festival-shluk-jihlava-gtahoubou-blanc.jpg';
 ---
 
 <html lang="en">
@@ -19,15 +20,22 @@ import obrazek from '../img/kabinet.jpg';
 		<Navigation></Navigation>
 
 		<div class="content">
+
+			<div class="poster">
+				<h3>Festival SHLUK,
+				Café Bar Sokolovna a DIOD Jihlava</h3>
+				<a href="https://www.instagram.com/shluk.festival/p/DYjjTr7A1rk/" target="_blank">
+					<img src={obrazek2.src}>
+				</a>
+				<h3>6. 6. 2026</h3>
+			</div>
+			<hr>
 			<div class="poster">
 						<h3>Kabinet Múz, Sukova 49/4, Brno</h3>
                         <a href="https://www.kabinetmuz.cz/program/2026-02-27-gta-houbou-blanc-live-show-" target="_blank">
                         <img src={obrazek.src}>
                         </a>
-                        <h3>27.2.2026, 20:00 open doors</h3>
-			</div>
-			<div class="poster">
-				<h3>Další show již brzy...</h3>
+                        <h3>27. 2. 2026, 20:00 open doors</h3>
 			</div>
 		</div>
         
@@ -90,6 +98,15 @@ import obrazek from '../img/kabinet.jpg';
         align-items: center;     
         text-align: center;
 	}
+
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 3px solid #272626;
+  margin-bottom: 16px;
+  padding: 0;
+}
 
 @media (min-width: 769px) {
   img {
