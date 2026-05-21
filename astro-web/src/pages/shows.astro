@@ -3,6 +3,8 @@ import Navigation from '../components/navbar.astro'
 import Footer from '../components/footer.astro'
 import obrazek from '../img/kabinet.jpg';
 import obrazek2 from '../img/festival-shluk-jihlava-gtahoubou-blanc.jpg';
+import obrazek3 from '../img/2328juza-vecirek1.jpg';
+
 ---
 
 <html lang="en">
@@ -20,9 +22,19 @@ import obrazek2 from '../img/festival-shluk-jihlava-gtahoubou-blanc.jpg';
 		<Navigation></Navigation>
 
 		<div class="content">
-
 			<div class="poster">
-				<h3>Festival SHLUK,
+				<i>Lístky a info o akci po kliknutí na obrázek</i>
+				<h3>Poslední 2328 večírek –
+				Kabinet Múz, Sukova 49/4, Brno</h3>
+				<i>GTA Houbou special guest</i>
+				<a href="https://goout.net/cs/2328vecirek/szjwhjy/?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQPOTM2NjE5NzQzMzkyNDU5AAGnxkVccWEIwz3VvdF9dCODg5pSqPdreROGqwb2gYxQakMwMq9dTNacvtgqrUI_aem_gxALVmsE73304VJvf3HSlQ" target="_blank">
+					<img src={obrazek3.src}>
+				</a>
+				<h3>26. 6. 2026</h3>
+			</div>
+			<hr>
+			<div class="poster">
+				<h3>Festival SHLUK –
 				Café Bar Sokolovna a DIOD Jihlava</h3>
 				<a href="https://www.instagram.com/shluk.festival/p/DYjjTr7A1rk/" target="_blank">
 					<img src={obrazek2.src}>
@@ -70,6 +82,15 @@ import obrazek2 from '../img/festival-shluk-jihlava-gtahoubou-blanc.jpg';
 		text-align: center;
 	}
 
+	i {
+		font-weight: 400;
+		font-size: 20px;
+		color:#9C2D30 ;
+		font-family: "Anton", sans-serif;
+		text-align: center;
+		margin-bottom: 20px;
+	}
+
 	img {
 		margin-bottom: 10px;
         transition: transform 0.3s ease-in-out;
@@ -90,6 +111,7 @@ import obrazek2 from '../img/festival-shluk-jihlava-gtahoubou-blanc.jpg';
 		justify-content: center;
 		padding: 40px 20px;  
   		overflow-x: hidden;  
+		text-align: center;
 	}
 
 	.poster {
