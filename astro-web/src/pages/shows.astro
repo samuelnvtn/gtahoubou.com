@@ -22,6 +22,9 @@ import obrazek3 from '../img/2328juza-vecirek1.jpg';
 		<Navigation></Navigation>
 
 		<div class="content">
+			<h2>Soon.</h2>
+
+			<!-- 
 			<div class="poster">
 				<i>Lístky a info o akci po kliknutí na obrázek</i>
 				<h3>Poslední 2328Večírek –
@@ -33,22 +36,7 @@ import obrazek3 from '../img/2328juza-vecirek1.jpg';
 				<h3>26. 6. 2026</h3>
 			</div>
 			<hr>
-			<div class="poster">
-				<h3>Festival SHLUK –
-				Café Bar Sokolovna a DIOD Jihlava</h3>
-				<a href="https://www.instagram.com/shluk.festival/p/DYjjTr7A1rk/" target="_blank">
-					<img src={obrazek2.src}>
-				</a>
-				<h3>6. 6. 2026</h3>
-			</div>
-			<hr>
-			<div class="poster">
-						<h3>Kabinet Múz, Sukova 49/4, Brno</h3>
-                        <a href="https://www.kabinetmuz.cz/program/2026-02-27-gta-houbou-blanc-live-show-" target="_blank">
-                        <img src={obrazek.src}>
-                        </a>
-                        <h3>27. 2. 2026, 20:00 open doors</h3>
-			</div>
+			-->
 		</div>
         
 		<Footer></Footer>		
@@ -72,11 +60,19 @@ import obrazek3 from '../img/2328juza-vecirek1.jpg';
   font-style: normal;
 }
 
+h2 {
+		font-weight: 400;
+		font-size: 50px;
+		color:#222a19 ;
+		margin-bottom: 10px;
+		font-family: "Anton", sans-serif;
+		text-align: center;
+	}
 
 	h3 {
 		font-weight: 400;
 		font-size: 30px;
-		color:#9C2D30 ;
+		color:#222a19 ;
 		margin-bottom: 10px;
 		font-family: "Anton", sans-serif;
 		text-align: center;
@@ -85,7 +81,7 @@ import obrazek3 from '../img/2328juza-vecirek1.jpg';
 	i {
 		font-weight: 400;
 		font-size: 20px;
-		color:#9C2D30 ;
+		color:#222a19 ;
 		font-family: "Anton", sans-serif;
 		text-align: center;
 		margin-bottom: 20px;
@@ -106,6 +102,7 @@ import obrazek3 from '../img/2328juza-vecirek1.jpg';
 	.content {
 		background-color: #111;
 		min-height: 91vh; 
+		display: flex;
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;

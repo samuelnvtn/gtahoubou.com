@@ -2,6 +2,7 @@
 import Navigation from '../components/navbar.astro'
 import Footer from '../components/footer.astro'
 import obrazek from '../img/show.png';
+import figurka from '../img/figurka.png'
 ---
 
 <html lang="en">
@@ -19,16 +20,7 @@ import obrazek from '../img/show.png';
 		<Navigation></Navigation>
 		<div class="content">
 			<div class="poster">
-				<h3>Nejbližší shows: 
-				6. 6. Festival SHLUK Jihlava | 
-				26. 6. Poslední 2328Večírek – Kabinet Múz Brno
-				</h3>
-			</div>
-			<div class="poster">
-						<h1>Flow Testing 3 Teaser</h1>
-						<div class="video-container">
-							<blockquote class="tiktok-embed" cite="https://www.tiktok.com/@gtahoubou/video/7631533235675155734" data-video-id="7631533235675155734" style="max-width: 605px;min-width: 325px;" > <section> <a target="_blank" title="@gtahoubou" href="https://www.tiktok.com/@gtahoubou?refer=embed">@gtahoubou</a> <a title="flowtesting3" target="_blank" href="https://www.tiktok.com/tag/flowtesting3?refer=embed">#flowtesting3</a>  produced by @blanc <a target="_blank" title="♬ původní zvuk - GTA Houbou" href="https://www.tiktok.com/music/původní-zvuk-7631533236098714390?refer=embed">♬ původní zvuk - GTA Houbou</a> </section> </blockquote> <script async src="https://www.tiktok.com/embed.js"></script>
-						</div>
+						<img src={figurka.src}>
 			</div>
 		</div>
 		<Footer></Footer>
@@ -66,7 +58,7 @@ import obrazek from '../img/show.png';
 	h1 {
 		font-weight: 400;
 		font-size: 40px;
-		color:#9C2D30 ;
+		color:#222a19 ;
 		margin-bottom: 10px;
 		font-family: "Anton", sans-serif;
 	}
@@ -74,14 +66,14 @@ import obrazek from '../img/show.png';
 	h3 {
 		font-weight: 400;
 		font-size: 20px;
-		color:#9C2D30 ;
+		color:#222a19 ;
 		margin-bottom: 10px;
 		font-family: "Anton", sans-serif;
 		
 	}
 
 	img {
-		height: 500px;
+		height: 800px;
 		width: auto;
 		margin-bottom: 10px;
 	}
