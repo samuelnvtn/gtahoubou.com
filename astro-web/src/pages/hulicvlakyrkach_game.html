@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Hulič v lakýrkách - GTA Edition</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&display=swap');
+
+    * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; -webkit-tap-highlight-color: transparent; }
+    body {
+      background: #050505;
+      color: #39ff14;
+      font-family: 'Cinzel', serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow: hidden;
+      touch-action: manipulation;
+    }
+    #game-container {
+      position: relative;
+      width: 100%;
+      max-width: 800px;
+      height: 400px;
+      background: #000;
+      border: 1px solid #1a3a1a;
+      overflow: hidden;
+      box-shadow: 0 0 30px rgba(57, 255, 20, 0.15);
+    }
+    canvas { display: block; width: 100%; height: 100%; }
+    
+    .overlay {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(3, 8, 3, 0.88);
+      backdrop-filter: blur(6px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+      z-index: 10;
+    }
+    .overlay h1 { 
+      font-family: 'Cinzel', serif;
+      font-size: 36px; 
+      margin-bottom: 4px; 
+      color: #39ff14; 
+      text-transform: uppercase; 
+      letter-spacing: 6px; 
+      font-weight: 400;
+      text-shadow: 0 0 15px rgba(57, 255, 20, 0.4);
+    }
+    .overlay .sub { 
+      font-family: 'Cinzel', serif;
+      font-size: 11px; 
+      color: #20c20e; 
+      text-transform: uppercase; 
+      letter-spacing: 5px; 
+      margin-bottom: 30px; 
+      font-weight: 600;
+    }
+    .overlay button {
+      padding: 12px 40px;
+      font-family: 'Cinzel', serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: #000;
+      background: #39ff14;
+      border: none;
+      border-radius: 2px;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      transition: transform 0.2s;
+      box-shadow: 0 0 15px rgba(57, 255, 20, 0.4);
+    }
+    .overlay button:hover { 
+      background: #39ff14; 
+      color: #000; 
+      transform: scale(1.04); 
+    }
+    
+    #hud {
+      position: absolute;
+      top: 15px; left: 20px;
+      font-family: 'Cinzel', serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: #39ff14;
+      letter-spacing: 3px;
+      z-index: 5;
+      text-shadow: 0 0 8px rgba(57, 255, 20, 0.6);
+    }
+
+    #diamond-status {
+      display: none;
+      position: absolute;
+      top: 15px; right: 20px;
+      font-family: 'Cinzel', serif;
+      font-size: 13px;
+      font-weight: 900;
+      color: #ffffff;
+      text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
+      letter-spacing: 2px;
+      z-index: 5;
+      background: rgba(0, 255, 255, 0.15);
+      border: 1px solid #00ffff;
+      padding: 6px 14px;
+      border-radius: 4px;
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+      animation: pulse 1s infinite alternate;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); box-shadow: 0 0 10px rgba(0,255,255,0.4); }
+      100% { transform: scale(1.03); box-shadow: 0 0 22px rgba(0,255,255,0.8); }
+    }
+
+    #mobile-controls {
+      display: none;
+      width: 100%;
+      max-width: 800px;
+      margin-top: 10px;
+      padding: 0 10px;
+    }
+    #jump-btn {
+      width: 100%;
+      height: 60px;
+      background: #39ff14;
+      color: #000;
+      border: none;
+      border-radius: 8px;
+      font-family: 'Cinzel', serif;
+      font-size: 18px;
+      font-weight: 900;
+      letter-spacing: 4px;
+      box-shadow: 0 0 15px rgba(57, 255, 20, 0.4);
+      cursor: pointer;
+    }
+    #jump-btn:active {
+      background: #fff;
+      transform: scale(0.98);
+    }
+
+    @media (max-width: 768px) {
+      #mobile-controls { display: block; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="game-container">
+  <div id="hud">JOINTS: <span id="score">0</span></div>
+  <div id="diamond-status">◆ DIAMANTOVÁ LAKÝRKA</div>
+  
+  <div id="start-screen" class="overlay">
+    <h1>Hulič v Lakýrkách</h1>
+    <div class="sub">GTA Edition</div>
+    <button onclick="startGame()">ENTER GAME</button>
+  </div>
+
+  <div id="game-over-screen" class="overlay" style="display: none;">
+    <h1 id="death-title">Wasted</h1>
+    <div class="sub">SCORE: <span id="final-score">0</span> JOINTS</div>
+    <button onclick="startGame()">TRY AGAIN</button>
+  </div>
+
+  <canvas id="canvas" width="800" height="400"></canvas>
+</div>
+
+<div id="mobile-controls">
+  <button id="jump-btn">SKOK / JUMP</button>
+</div>
+
+<script>
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+
+let isRunning = false;
+let score = 0;
+let frame = 0;
+let speed = 5.2; 
+let baseSpeed = 5.2;
+let minSpawnCooldown = 0;
+
+let isInvincible = false;
+let invincibilityTimer = 0;
+let lastShoeSpawnFrame = 0; 
+let particles = [];
+let sparkles = [];
+
+const player = {
+  x: 90,
+  y: 235,
+  w: 48,
+  h: 80,
+  dy: 0,
+  gravity: 0.95,
+  jumpPower: -15.5,
+  grounded: false
+};
+
+let obstacles = [];
+let items = [];
+let diamondShoes = [];
+
+function resetGame() {
+  score = 0;
+  speed = 5.2;
+  baseSpeed = 5.2;
+  frame = 0;
+  minSpawnCooldown = 0;
+  isInvincible = false;
+  invincibilityTimer = 0;
+  lastShoeSpawnFrame = 0;
+  obstacles = [];
+  items = [];
+  diamondShoes = [];
+  particles = [];
+  sparkles = [];
+  player.y = 235;
+  player.dy = 0;
+  document.getElementById('score').innerText = '0';
+  document.getElementById('diamond-status').style.display = 'none';
+}
+
+function startGame() {
+  resetGame();
+  document.getElementById('start-screen').style.display = 'none';
+  document.getElementById('game-over-screen').style.display = 'none';
+  isRunning = true;
+  requestAnimationFrame(loop);
+}
+
+function gameOver(hitType) {
+  isRunning = false;
+  
+  let deathTitle = "WASTED";
+  if (hitType === 'combo' || hitType === 'hobo') {
+    deathTitle = "ASSAULTED";
+  } else if (hitType === 'hoes') {
+    deathTitle = "TRAPPED";
+  } else if (hitType === 'car') {
+    deathTitle = "WASTED";
+  }
+
+  document.getElementById('death-title').innerText = deathTitle;
+  document.getElementById('final-score').innerText = score;
+  document.getElementById('game-over-screen').style.display = 'flex';
+}
+
+function jump() {
+  if (player.grounded && isRunning) {
+    player.dy = player.jumpPower;
+    player.grounded = false;
+  }
+}
+
+window.addEventListener('keydown', e => { 
+  if (e.code === 'Space' || e.code === 'ArrowUp') {
+    e.preventDefault();
+    jump(); 
+  }
+});
+
+const jumpBtn = document.getElementById('jump-btn');
+jumpBtn.addEventListener('touchstart', e => { e.preventDefault(); jump(); });
+jumpBtn.addEventListener('mousedown', e => { e.preventDefault(); jump(); });
+
+canvas.addEventListener('touchstart', e => { e.preventDefault(); jump(); });
+canvas.addEventListener('mousedown', jump);
+
+function drawBackground() {
+  let skyGrad = ctx.createLinearGradient(0, 0, 0, 320);
+  skyGrad.addColorStop(0, '#111726');
+  skyGrad.addColorStop(0.4, '#382b47');
+  skyGrad.addColorStop(0.8, '#8c4b40');
+  skyGrad.addColorStop(1, '#c46f49');
+  ctx.fillStyle = skyGrad;
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  ctx.fillStyle = 'rgba(255, 230, 180, 0.25)';
+  ctx.beginPath();
+  ctx.arc(620, 110, 80, 0, Math.PI * 2);
+  ctx.fill();
+
+  let hillOffset = (frame * 0.2) % 800;
+  ctx.fillStyle = '#231a2e';
+  ctx.beginPath();
+  ctx.moveTo(-hillOffset, 320);
+  ctx.lineTo(200 - hillOffset, 160);
+  ctx.lineTo(500 - hillOffset, 220);
+  ctx.lineTo(800 - hillOffset, 140);
+  ctx.lineTo(1100 - hillOffset, 320);
+  ctx.fill();
+
+  let bOffset = (frame * 0.8) % 1200;
+  for (let i = -1; i < 3; i++) {
+    let bx = i * 600 - bOffset;
+
+    ctx.fillStyle = '#16141c'; ctx.fillRect(bx + 20, 120, 80, 195);
+    ctx.fillStyle = '#221e2b'; ctx.fillRect(bx + 22, 120, 4, 195);
+    ctx.fillStyle = '#ff3366'; ctx.fillRect(bx + 58, 85, 4, 35);
+    ctx.fillStyle = (Math.floor(frame / 20) % 2 === 0) ? '#ff0000' : '#330000';
+    ctx.beginPath(); ctx.arc(bx + 60, 85, 3, 0, Math.PI * 2); ctx.fill();
+
+    ctx.fillStyle = '#251c22'; ctx.fillRect(bx + 110, 100, 100, 215);
+    ctx.fillStyle = '#4a2f34'; ctx.fillRect(bx + 105, 95, 110, 8);
+    ctx.fillStyle = '#0f0c12'; ctx.fillRect(bx + 130, 82, 18, 13);
+    ctx.fillRect(bx + 160, 86, 22, 9);
+
+    ctx.fillStyle = '#2e2120'; ctx.fillRect(bx + 220, 150, 75, 165);
+    ctx.fillStyle = '#4a2f23';
+    ctx.beginPath(); ctx.moveTo(bx + 215, 150); ctx.lineTo(bx + 257, 115); ctx.lineTo(bx + 300, 150); ctx.fill();
+
+    ctx.fillStyle = '#1a1824'; ctx.fillRect(bx + 305, 130, 115, 185);
+    ctx.fillStyle = '#00f5d4'; ctx.fillRect(bx + 320, 140, 45, 4);
+
+    ctx.fillStyle = '#171d24'; ctx.fillRect(bx + 430, 180, 95, 135);
+
+    for (let wy = 130; wy < 300; wy += 26) {
+      if (wy >= 130) {
+        ctx.fillStyle = (wy % 2 === 0) ? '#fce38a' : '#2b261f';
+        ctx.fillRect(bx + 35, wy, 12, 15);
+        ctx.fillRect(bx + 65, wy, 12, 15);
+      }
+      if (wy >= 110) {
+        ctx.fillStyle = ((wy + i) % 3 === 0) ? '#ffde8a' : '#1f2430';
+        ctx.fillRect(bx + 122, wy, 22, 14);
+        ctx.fillRect(bx + 152, wy, 22, 14);
+        ctx.fillRect(bx + 182, wy, 18, 14);
+      }
+      if (wy >= 160) {
+        ctx.fillStyle = (wy % 4 === 0) ? '#ffd166' : '#211917';
+        ctx.fillRect(bx + 235, wy, 15, 16);
+        ctx.fillRect(bx + 265, wy, 15, 16);
+      }
+      if (wy >= 150) {
+        ctx.fillStyle = (wy % 5 === 0) ? '#00f5d4' : '#182026';
+        ctx.fillRect(bx + 320, wy, 25, 12);
+        ctx.fillRect(bx + 355, wy, 25, 12);
+        ctx.fillRect(bx + 390, wy, 18, 12);
+      }
+      if (wy >= 195 && wy < 280) {
+        ctx.fillStyle = '#ffe5ec';
+        ctx.fillRect(bx + 445, wy, 18, 18);
+        ctx.fillRect(bx + 480, wy, 18, 18);
+      }
+    }
+
+    ctx.fillStyle = 'rgba(255, 200, 100, 0.8)';
+    ctx.fillRect(bx + 230, 285, 55, 30);
+    ctx.fillStyle = 'rgba(255, 150, 50, 0.7)';
+    ctx.fillRect(bx + 440, 280, 75, 35);
+  }
+
+  // Cesta / Chodník
+  ctx.fillStyle = '#15161a';
+  ctx.fillRect(0, 315, canvas.width, 85);
+  
+  ctx.strokeStyle = '#282a33';
+  ctx.lineWidth = 1.5;
+  let stoneOffset = (frame * speed) % 40;
+  for (let x = -stoneOffset; x < canvas.width + 40; x += 40) {
+    ctx.beginPath();
+    ctx.moveTo(x, 315);
+    ctx.lineTo(x - 25, 400);
+    ctx.stroke();
+  }
+
+  ctx.fillStyle = '#39ff14';
+  ctx.fillRect(0, 315, canvas.width, 3.5);
+}
+
+function renderHighClassDressShoe(ctx, x, y, isDiamondMode) {
+  ctx.save();
+
+  ctx.fillStyle = isDiamondMode ? '#d4af37' : '#050505';
+  ctx.fillRect(x + 2, y + 10, 7, 6);
+
+  ctx.fillStyle = isDiamondMode ? '#ffffff' : '#111111';
+  ctx.fillRect(x + 2, y + 14, 28, 2);
+
+  ctx.beginPath();
+  ctx.moveTo(x + 5, y + 4);       
+  ctx.lineTo(x + 2, y + 10);      
+  ctx.lineTo(x + 28, y + 14);     
+  ctx.lineTo(x + 30, y + 10);     
+  ctx.lineTo(x + 20, y + 7);      
+  ctx.lineTo(x + 12, y + 4);      
+  ctx.closePath();
+
+  if (isDiamondMode) {
+    let shoeGrad = ctx.createLinearGradient(x, y, x + 30, y + 16);
+    shoeGrad.addColorStop(0, '#ffd700');
+    shoeGrad.addColorStop(0.5, '#ffffff');
+    shoeGrad.addColorStop(1, '#b8860b');
+    ctx.fillStyle = shoeGrad;
+    ctx.fill();
+
+    ctx.strokeStyle = '#8b6508';
+    ctx.lineWidth = 1;
+    for (let cl = 0; cl < 4; cl++) {
+      ctx.strokeRect(x + 7 + (cl * 5), y + 7, 4, 5);
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(x + 8.5 + (cl * 5), y + 8.5, 1.5, 2);
+    }
+  } else {
+    let shoeGrad = ctx.createLinearGradient(x, y, x + 30, y + 16);
+    shoeGrad.addColorStop(0, '#444444');
+    shoeGrad.addColorStop(0.3, '#0a0a0a');
+    shoeGrad.addColorStop(0.8, '#000000');
+    shoeGrad.addColorStop(1, '#1a1a1a');
+    ctx.fillStyle = shoeGrad;
+    ctx.fill();
+
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+    ctx.beginPath();
+    ctx.moveTo(x + 12, y + 6);
+    ctx.lineTo(x + 25, y + 10);
+    ctx.lineTo(x + 22, y + 12);
+    ctx.lineTo(x + 10, y + 8);
+    ctx.closePath();
+    ctx.fill();
+  }
+
+  ctx.restore();
+}
+
+function draw3DPerson() {
+  let px = player.x;
+  let py = player.y;
+
+  if (isInvincible) {
+    ctx.shadowColor = '#00ffff';
+    ctx.shadowBlur = 20;
+
+    let auraGrad = ctx.createRadialGradient(px + 20, py + 70, 5, px + 20, py + 70, 55);
+    auraGrad.addColorStop(0, 'rgba(255, 255, 255, 0.8)');
+    auraGrad.addColorStop(0.4, 'rgba(0, 255, 255, 0.4)');
+    auraGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+    ctx.fillStyle = auraGrad;
+    ctx.beginPath();
+    ctx.arc(px + 20, py + 70, 55, 0, Math.PI * 2);
+    ctx.fill();
+
+    if (frame % 2 === 0) {
+      sparkles.push({
+        x: px + 10 + Math.random() * 25,
+        y: py + 60 + Math.random() * 20,
+        vx: (Math.random() - 0.5) * 3,
+        vy: -Math.random() * 3 - 1,
+        size: Math.random() * 4 + 2,
+        life: 25
+      });
+    }
+  }
+
+  // NOHY
+  let legGrad1 = ctx.createLinearGradient(px + 6, py + 40, px + 19, py + 40);
+  legGrad1.addColorStop(0, '#3a4e32');
+  legGrad1.addColorStop(0.5, '#22321c');
+  legGrad1.addColorStop(1, '#0e160b');
+  ctx.fillStyle = legGrad1;
+  ctx.beginPath();
+  ctx.roundRect(px + 6, py + 42, 13, 26, 4);
+  ctx.fill();
+
+  let legGrad2 = ctx.createLinearGradient(px + 23, py + 40, px + 36, py + 40);
+  legGrad2.addColorStop(0, '#3a4e32');
+  legGrad2.addColorStop(0.5, '#22321c');
+  legGrad2.addColorStop(1, '#0e160b');
+  ctx.fillStyle = legGrad2;
+  ctx.beginPath();
+  ctx.roundRect(px + 23, py + 40, 13, 28, 4);
+  ctx.fill();
+
+  // TĚLO / SAKO
+  let bodyGrad = ctx.createLinearGradient(px + 6, py + 16, px + 36, py + 44);
+  bodyGrad.addColorStop(0, '#5a784e');
+  bodyGrad.addColorStop(0.4, '#385230');
+  bodyGrad.addColorStop(1, '#1b2b17');
+  ctx.fillStyle = bodyGrad;
+  ctx.beginPath();
+  ctx.roundRect(px + 6, py + 16, 30, 28, 8);
+  ctx.fill();
+
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
+  ctx.beginPath();
+  ctx.roundRect(px + 8, py + 18, 8, 22, 4);
+  ctx.fill();
+
+  ctx.fillStyle = '#ffffff';
+  ctx.beginPath();
+  ctx.moveTo(px + 18, py + 16);
+  ctx.lineTo(px + 24, py + 16);
+  ctx.lineTo(px + 21, py + 26);
+  ctx.closePath();
+  ctx.fill();
+
+  ctx.fillStyle = '#e63946';
+  ctx.fillRect(px + 20, py + 18, 2, 9);
+
+  // HLAVA
+  let headGrad = ctx.createRadialGradient(px + 20, py + 6, 2, px + 21, py + 10, 12);
+  headGrad.addColorStop(0, '#ffebcd');
+  headGrad.addColorStop(0.7, '#e0ac69');
+  headGrad.addColorStop(1, '#ab7a3e');
+  ctx.fillStyle = headGrad;
+  ctx.beginPath();
+  ctx.arc(px + 21, py + 10, 10, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.fillStyle = '#2c1d11';
+  ctx.beginPath();
+  ctx.arc(px + 21, py + 5, 10, Math.PI, Math.PI * 2);
+  ctx.arc(px + 15, py + 7, 4, 0, Math.PI * 2);
+  ctx.arc(px + 27, py + 7, 4, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.fillStyle = '#1a1a1a';
+  ctx.beginPath();
+  ctx.arc(px + 25, py + 10, 2, 0, Math.PI * 2);
+  ctx.arc(px + 18, py + 10, 1.8, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.fillStyle = '#ffffff';
+  ctx.beginPath();
+  ctx.arc(px + 25.5, py + 9.5, 0.7, 0, Math.PI * 2);
+  ctx.arc(px + 18.5, py + 9.5, 0.6, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.strokeStyle = '#8c592b';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.arc(px + 22, py + 12, 3, 0.1, Math.PI * 0.8);
+  ctx.stroke();
+
+  // JOINT V RUCE
+  ctx.save();
+  ctx.translate(px + 22, py + 26);
+  ctx.rotate(-Math.PI / 6);
+
+  let handJointGrad = ctx.createLinearGradient(0, 0, 48, 0);
+  handJointGrad.addColorStop(0, '#7c6843');
+  handJointGrad.addColorStop(0.2, '#dedaab');
+  handJointGrad.addColorStop(1, '#9eb883');
+
+  ctx.fillStyle = handJointGrad;
+  ctx.beginPath();
+  ctx.moveTo(0, 0);
+  ctx.lineTo(48, -7);
+  ctx.lineTo(50, 7);
+  ctx.lineTo(0, 4);
+  ctx.closePath();
+  ctx.fill();
+
+  ctx.fillStyle = '#7a8c66';
+  ctx.beginPath();
+  ctx.moveTo(48, -7);
+  ctx.lineTo(54, 0);
+  ctx.lineTo(50, 7);
+  ctx.closePath();
+  ctx.fill();
+
+  ctx.restore();
+
+  ctx.fillStyle = '#e0ac69';
+  ctx.beginPath();
+  ctx.arc(px + 22, py + 26, 4, 0, Math.PI * 2);
+  ctx.fill();
+
+  // LAKÝRKY NA NOHÁCH
+  renderHighClassDressShoe(ctx, px - 2, py + 64, isInvincible);
+  renderHighClassDressShoe(ctx, px + 15, py + 62, isInvincible);
+
+  ctx.shadowBlur = 0;
+}
+
+function drawObstacle(obs) {
+  ctx.lineWidth = 2;
+  ctx.strokeStyle = '#000000';
+
+  if (obs.type === 'car') {
+    ctx.strokeRect(obs.x, obs.y + 10, obs.w, obs.h - 10);
+
+    ctx.fillStyle = '#1c2d42';
+    ctx.fillRect(obs.x, obs.y + 10, obs.w, obs.h - 10);
+    ctx.fillStyle = '#ff2a2a';
+    ctx.fillRect(obs.x, obs.y + 18, obs.w, 4);
+    ctx.fillStyle = '#2d3e55';
+    ctx.fillRect(obs.x + 12, obs.y, obs.w - 24, 12);
+    ctx.fillStyle = '#000';
+    ctx.fillRect(obs.x + 15, obs.y + 2, 12, 8);
+    ctx.fillRect(obs.x + 32, obs.y + 2, 12, 8);
+    ctx.fillStyle = '#050505';
+    ctx.beginPath();
+    ctx.arc(obs.x + 14, obs.y + obs.h, 8, 0, Math.PI * 2);
+    ctx.arc(obs.x + obs.w - 14, obs.y + obs.h, 8, 0, Math.PI * 2);
+    ctx.fill();
+
+    let isRed = (Math.floor(frame / 12) % 2 === 0);
+    ctx.fillStyle = isRed ? '#ff0033' : '#00aaff';
+    ctx.fillRect(obs.x + obs.w / 2 - 7, obs.y - 6, 14, 6);
+
+  } else if (obs.type === 'hobo') {
+    ctx.fillStyle = '#7a5230'; 
+    ctx.fillRect(obs.x + 6, obs.y + 12, 16, 22);
+    ctx.fillStyle = '#4a3828'; 
+    ctx.fillRect(obs.x + 8, obs.y + 34, 12, 16);
+    ctx.fillStyle = '#e6c29c'; 
+    ctx.beginPath();
+    ctx.arc(obs.x + 14, obs.y + 8, 8, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = '#331a00'; 
+    ctx.fillRect(obs.x + 6, obs.y + 8, 16, 9);
+
+    ctx.fillStyle = 'rgba(180, 160, 200, 0.4)';
+    ctx.beginPath();
+    ctx.arc(obs.x + 14 + Math.sin(frame * 0.15) * 4, obs.y - 4, 10, 0, Math.PI * 2);
+    ctx.arc(obs.x + 22 + Math.cos(frame * 0.15) * 4, obs.y + 6, 8, 0, Math.PI * 2);
+    ctx.fill();
+
+  } else if (obs.type === 'hoes') {
+    for (let offset of [0, 20]) {
+      ctx.fillStyle = '#e09f67';
+      ctx.fillRect(obs.x + offset + 5, obs.y + 12, 8, 34);
+      
+      ctx.fillStyle = offset === 0 ? '#ff007f' : '#ffea00';
+      ctx.fillRect(obs.x + offset + 5, obs.y + 16, 8, 6);
+      ctx.fillRect(obs.x + offset + 5, obs.y + 28, 8, 6);
+      
+      ctx.fillStyle = offset === 0 ? '#2b1600' : '#ffcc00';
+      ctx.beginPath();
+      ctx.arc(obs.x + offset + 9, obs.y + 8, 7, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillRect(obs.x + offset + 2, obs.y + 8, 14, 14);
+
+      ctx.fillStyle = '#000';
+      ctx.fillRect(obs.x + offset + 7, obs.y + 7, 5, 3);
+    }
+  }
+}
+
+function handleSpawns() {
+  // DIAMANTOVÁ LAKÝRKA: Ještě vzácnější spawn
+  let timeSinceLastShoe = frame - lastShoeSpawnFrame;
+  let shoeRoll = Math.random() < 0.0012; // Znížena pravděpodobnost
+  let forceSpawn = timeSinceLastShoe > 4500; // Pity po cca 75-90 sekundách
+
+  if (frame > 1200 && (shoeRoll || forceSpawn) && diamondShoes.length === 0) {
+    diamondShoes.push({
+      x: canvas.width,
+      y: 160 + Math.random() * 50,
+      w: 36,
+      h: 20
+    });
+    lastShoeSpawnFrame = frame;
+  }
+
+  // PŘEKÁŽKY
+  if (minSpawnCooldown > 0) {
+    minSpawnCooldown--;
+  } else if (Math.random() < 0.03) {
+    let isCombo = Math.random() < 0.3; 
+    let availableTypes = ['car', 'hobo', 'hoes'];
+    
+    let firstType = availableTypes[Math.floor(Math.random() * availableTypes.length)];
+    let secondType = availableTypes.filter(t => t !== firstType)[Math.floor(Math.random() * 2)];
+
+    let spawnList = !isCombo ? [firstType] : [firstType, secondType];
+    let currentX = canvas.width;
+    let requiredGap = 160 + (speed * 8); 
+
+    for (let type of spawnList) {
+      let w = type === 'car' ? 68 : (type === 'hoes' ? 42 : 28);
+      let h = type === 'car' ? 33 : 50;
+      let y = 315 - h;
+
+      obstacles.push({
+        x: currentX,
+        y: y,
+        w: w,
+        h: h,
+        type: type,
+        isComboGroup: isCombo
+      });
+
+      // Výjimečný joint nad překážkou (jen 20% šance)
+      let lastItem = items[items.length - 1];
+      let distFromLast = lastItem ? (currentX - lastItem.x) : 999;
+      
+      if (distFromLast > 380 && Math.random() < 0.20) {
+        items.push({ 
+          x: currentX + (w / 2) - 20, 
+          y: y - 55, 
+          w: 42, 
+          h: 14, 
+          angle: 0 
+        });
+      }
+
+      currentX += w + requiredGap;
+    }
+
+    minSpawnCooldown = Math.floor(450 / speed);
+  }
+
+  // VYRÁZNĚ MÉNĚ JOINTŮ VE VZDUCHU (Cca 3-5 kusů za 30 sekund)
+  let lastItem = items[items.length - 1];
+  let distFromLast = lastItem ? (canvas.width - lastItem.x) : 999;
+
+  if (distFromLast > 380 && Math.random() < 0.02) {
+    let singleY = 140 + Math.random() * 80;
+    items.push({ x: canvas.width, y: singleY, w: 42, h: 14, angle: 0 });
+  }
+}
+
+function loop() {
+  if (!isRunning) return;
+  frame++;
+  
+  if (baseSpeed < 10.0) {
+    baseSpeed += 0.001; 
+  }
+
+  if (isInvincible) {
+    invincibilityTimer--;
+    speed = baseSpeed * 1.35; 
+    if (invincibilityTimer <= 0) {
+      isInvincible = false;
+      document.getElementById('diamond-status').style.display = 'none';
+    }
+  } else {
+    speed = baseSpeed;
+  }
+
+  player.dy += player.gravity;
+  player.y += player.dy;
+
+  if (player.y >= 235) {
+    player.y = 235;
+    player.dy = 0;
+    player.grounded = true;
+  }
+
+  drawBackground();
+  draw3DPerson();
+  handleSpawns();
+
+  // Překážky
+  for (let i = obstacles.length - 1; i >= 0; i--) {
+    let obs = obstacles[i];
+    obs.x -= speed;
+
+    drawObstacle(obs);
+
+    if (!isInvincible && player.x < obs.x + obs.w - 8 && player.x + player.w > obs.x + 8 &&
+        player.y < obs.y + obs.h && player.y + player.h > obs.y + 6) {
+      
+      let finalHitType = obs.isComboGroup ? 'combo' : obs.type;
+      gameOver(finalHitType);
+      return;
+    }
+
+    if (obs.x < -100) obstacles.splice(i, 1);
+  }
+
+  // DIAMANTOVÁ LAKÝRKA
+  for (let i = diamondShoes.length - 1; i >= 0; i--) {
+    let ds = diamondShoes[i];
+    ds.x -= speed;
+
+    ctx.save();
+    ctx.shadowColor = '#00ffff';
+    ctx.shadowBlur = 25;
+    
+    renderHighClassDressShoe(ctx, ds.x, ds.y, true);
+
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(ds.x + Math.random() * 30, ds.y + Math.random() * 15, 2, 2);
+
+    ctx.restore();
+
+    if (player.x < ds.x + ds.w && player.x + player.w > ds.x &&
+        player.y < ds.y + ds.h && player.y + player.h > ds.y) {
+      
+      isInvincible = true;
+      invincibilityTimer = 380;
+      
+      let statusEl = document.getElementById('diamond-status');
+      statusEl.style.display = 'block';
+
+      diamondShoes.splice(i, 1);
+      continue;
+    }
+
+    if (ds.x < -50) diamondShoes.splice(i, 1);
+  }
+
+  // Jiskřičky
+  for (let sp = sparkles.length - 1; sp >= 0; sp--) {
+    let s = sparkles[sp];
+    s.x += s.vx;
+    s.y += s.vy;
+    s.life--;
+
+    if (s.life <= 0) {
+      sparkles.splice(sp, 1);
+      continue;
+    }
+
+    ctx.fillStyle = (sp % 2 === 0) ? '#ffffff' : '#00ffff';
+    ctx.beginPath();
+    ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  // Kouřové částice
+  for (let p = particles.length - 1; p >= 0; p--) {
+    let pt = particles[p];
+    pt.x += pt.vx;
+    pt.y += pt.vy;
+    pt.alpha -= 0.02;
+
+    if (pt.alpha <= 0) {
+      particles.splice(p, 1);
+      continue;
+    }
+
+    ctx.fillStyle = `rgba(180, 100, 255, ${pt.alpha})`;
+    ctx.beginPath();
+    ctx.arc(pt.x, pt.y, pt.size, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  // Jointy (Magnetické přitahování)
+  for (let i = items.length - 1; i >= 0; i--) {
+    let item = items[i];
+
+    if (isInvincible) {
+      let targetX = player.x + 20;
+      let targetY = player.y + 40;
+
+      let dx = targetX - item.x;
+      let dy = targetY - item.y;
+      let dist = Math.hypot(dx, dy);
+
+      item.x += (dx / dist) * 12;
+      item.y += (dy / dist) * 12;
+      item.angle = Math.atan2(dy, dx);
+
+      if (Math.random() < 0.4) {
+        particles.push({
+          x: item.x,
+          y: item.y,
+          vx: (Math.random() - 0.5) * 1,
+          vy: -0.5,
+          size: Math.random() * 3 + 2,
+          alpha: 0.7
+        });
+      }
+    } else {
+      item.x -= speed;
+      item.angle = 0;
+    }
+
+    let ix = item.x;
+    let iy = item.y;
+
+    ctx.save();
+    ctx.translate(ix, iy);
+    ctx.rotate(item.angle);
+
+    ctx.strokeStyle = '#000';
+    ctx.lineWidth = 1.5;
+
+    ctx.fillStyle = '#a66e38';
+    ctx.fillRect(-20, -3, 10, 6);
+    ctx.strokeRect(-20, -3, 10, 6);
+
+    let paperGrad = ctx.createLinearGradient(-10, -7, 20, 7);
+    paperGrad.addColorStop(0, '#ffffff');
+    paperGrad.addColorStop(0.5, '#f5f0bb');
+    paperGrad.addColorStop(1, '#ded78e');
+    
+    ctx.fillStyle = paperGrad;
+    ctx.beginPath();
+    ctx.moveTo(-10, -3);
+    ctx.lineTo(16, -6);
+    ctx.lineTo(16, 6);
+    ctx.lineTo(-10, 3);
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
+
+    ctx.fillStyle = '#ff4500';
+    ctx.beginPath();
+    ctx.moveTo(16, -6);
+    ctx.lineTo(22, 0);
+    ctx.lineTo(16, 6);
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.restore();
+
+    if (player.x < item.x + item.w && player.x + player.w > item.x &&
+        player.y < item.y + item.h && player.y + player.h > item.y) {
+      score++;
+      document.getElementById('score').innerText = score;
+      items.splice(i, 1);
+      continue;
+    }
+
+    if (item.x < -50) items.splice(i, 1);
+  }
+
+  requestAnimationFrame(loop);
+}
+
+drawBackground();
+draw3DPerson();
+</script>
+
+</body>
+</html>

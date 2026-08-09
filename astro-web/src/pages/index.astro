@@ -20,7 +20,9 @@ import figurka from '../img/figurka.png'
 		<Navigation></Navigation>
 		<div class="content">
 			<div class="poster">
-						<img src={figurka.src}>
+						<a href="/hulicvlakyrkach_game.html" class="poster-link">
+							<img src={figurka.src} class="nudge-animation">
+						</a>
 			</div>
 		</div>
 		<Footer></Footer>
@@ -66,14 +68,14 @@ import figurka from '../img/figurka.png'
 	h3 {
 		font-weight: 400;
 		font-size: 20px;
-		color:#222a19 ;
+		color:#4F5845 ;
 		margin-bottom: 10px;
 		font-family: "Anton", sans-serif;
 		
 	}
 
 	img {
-		height: 800px;
+		height: 600px;
 		width: auto;
 		margin-bottom: 10px;
 	}
@@ -94,4 +96,43 @@ import figurka from '../img/figurka.png'
         align-items: center;     
         text-align: center;
 	}
+
+	a {
+		text-decoration: none;
+	}
+
+	.poster-link {
+    display: inline-block;
+    transition: transform 0.3s ease-out;
+}
+
+.poster-link:hover {
+    transform: scale(1.05);
+}
+
+	.nudge-animation {
+    transition: transform 0.2s ease-in-out;
+    animation: occasional-wiggle 2.5s infinite;
+  }
+
+  .nudge-animation:hover {
+    transform: scale(1.05);
+    animation: none; 
+  }
+
+  @keyframes occasional-wiggle {
+    0%, 85%, 100% { 
+      transform: rotate(0deg) scale(1); 
+    }
+    88% { 
+      transform: rotate(-3deg) scale(1.05); 
+    }
+    92% { 
+      transform: rotate(3deg) scale(1.05); 
+    }
+    96% { 
+      transform: rotate(-3deg) scale(1.05); 
+    }
+  }
+
 </style>
