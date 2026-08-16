@@ -38,6 +38,9 @@ import figurka from '../img/figurka.png'
 
 	body {
 		overflow-x: hidden;
+		display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 	}
 
 	.anton-regular {
@@ -77,17 +80,16 @@ import figurka from '../img/figurka.png'
 	img {
 		height: 600px;
 		width: auto;
-		margin-bottom: 10px;
 	}
 
 	.content {
 		background-color: #111;
-		min-height: 100vh; //91vh
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		justify-content: center;
+    justify-content: center;
 		padding: 40px 0;
+		flex: 1;
 	}
 
 	.poster {
