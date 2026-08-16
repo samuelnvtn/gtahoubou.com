@@ -3,7 +3,7 @@ import logo from '../img/gta_logo_green.png';
 import stars from '../img/gta_wanted_army.png';
 ---
 
-
+<div class="wrapper">
 <div class="navbar">
     <div class="navbar-left">
           <!--
@@ -36,6 +36,7 @@ import stars from '../img/gta_wanted_army.png';
     <a href="/gta-vi">GTA VI</a>
   </nav>
 </div>
+</div>
 <style>
     *{
         margin: 0;
@@ -52,7 +53,7 @@ import stars from '../img/gta_wanted_army.png';
 		font-family: "Anton", sans-serif;
         text-decoration: none;
         margin-right: 20px;
-        font-size: 18px;
+        font-size: 25px;
         font-weight: 400;
     }
 
@@ -84,6 +85,12 @@ import stars from '../img/gta_wanted_army.png';
         width: 100%;
         padding: 0px 40px;
         z-index: 999;
+    }
+
+    .wrapper{
+      max-width: 1536px; 
+    margin: 0 auto;   
+    width: 100%;
     }
 
     .navbar-left {
@@ -188,6 +195,21 @@ import stars from '../img/gta_wanted_army.png';
         .menu-btn { display: flex; }
 
         img {height: 20px;}
+
+    }
+
+    @media (min-width: 1536px) {
+      
+      a{
+        font-size: 30px;
+        font-weight: 800;
+      }
+
+      img {height: 40px;}
+
+      p {
+        font-size: 18px;
+      }
 
     }
 </style>
