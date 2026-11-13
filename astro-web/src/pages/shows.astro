@@ -4,6 +4,7 @@ import Footer from '../components/footer.astro'
 import obrazek from '../img/kabinet.jpg';
 import obrazek2 from '../img/festival-shluk-jihlava-gtahoubou-blanc.jpg';
 import obrazek3 from '../img/2328juza-vecirek1.jpg';
+import stream from '../img/Kick.com:gtahoubou.jpg'
 
 ---
 
@@ -22,9 +23,23 @@ import obrazek3 from '../img/2328juza-vecirek1.jpg';
 		<Navigation></Navigation>
 
 		<div class="content">
-			<h2>Soon.</h2>
+			<!-- <h2>Soon.</h2> -->
 
-			<!-- 
+			<div class="poster">
+					<a href="https://kick.com/GTAHOUBOU" target="_blank">
+					<i>KICK.COM/GTAHOUBOU</i>
+					</a>
+			
+				<h3>GTA Houbou – GTA VI Livestream </h3>
+				<i>gameplay, music, freestyles + hosté</i>
+				<a href="https://kick.com/GTAHOUBOU" target="_blank">
+					<img src={stream.src}>
+				</a>
+				<h3>19. 11. 2026</h3>
+			</div>
+			<hr>
+
+			<!--
 			<div class="poster">
 				<i>Lístky a info o akci po kliknutí na obrázek</i>
 				<h3>Poslední 2328Večírek –
@@ -81,7 +96,7 @@ h2 {
 	i {
 		font-weight: 400;
 		font-size: 20px;
-		color:#222a19 ;
+		color:#4a5c36 ;
 		font-family: "Anton", sans-serif;
 		text-align: center;
 		margin-bottom: 20px;
@@ -98,6 +113,10 @@ h2 {
     img:hover {
         transform: scale(1.025);
     }
+
+	a {
+		text-decoration: none;
+	}
 
 	.content {
 		background-color: #111;
